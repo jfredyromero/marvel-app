@@ -1,0 +1,89 @@
+{
+	"root": true,
+	"ignorePatterns": ["projects/**/*"],
+	"overrides": [
+		{
+			"files": ["*.ts"],
+			"parserOptions": {
+				"project": ["tsconfig.json"],
+				"createDefaultProgram": true
+			},
+			"extends": [
+				"plugin:@angular-eslint/ng-cli-compat",
+				"plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
+				"plugin:@angular-eslint/recommended"
+			],
+			"rules": {
+				"@angular-eslint/use-lifecycle-interface": ["error"],
+				"quotes": "off",
+				"@typescript-eslint/quotes": ["error", "double"],
+				"@typescript-eslint/no-for-in-array": "error",
+				"@typescript-eslint/prefer-for-of": "error",
+				"@typescript-eslint/explicit-member-accessibility": [
+					"error",
+					{
+						"accessibility": "no-public",
+						"overrides": { "parameterProperties": "off" }
+					}
+				],
+				"@typescript-eslint/array-type": ["error"],
+				"no-empty-function": "off",
+				"@typescript-eslint/no-empty-function": ["error"],
+				"@typescript-eslint/no-explicit-any": ["off"],
+				"no-use-before-define": "off",
+				"@typescript-eslint/no-use-before-define": ["error"],
+				"@typescript-eslint/no-var-requires": ["error"],
+				"arrow-parens": ["error", "as-needed"],
+				"comma-dangle": ["off", "always-multiline"],
+				"no-multiple-empty-lines": ["error"],
+				"max-classes-per-file": "error",
+				"id-denylist": [
+					"error",
+					"any",
+					"aux",
+					"Number",
+					"number",
+					"String",
+					"string",
+					"Boolean",
+					"boolean",
+					"Undefined",
+					"undefined"
+				],
+				"no-console": ["error", { "allow": ["error"] }],
+				"complexity": ["error", 5],
+				"max-depth": ["error"],
+				"no-empty": ["error"],
+				"no-invalid-this": ["error"],
+				"valid-typeof": ["error"],
+				"indent": ["error", "tab"],
+				"no-cond-assign": "error",
+				"curly": "error",
+				"import/no-deprecated": ["error"]
+			}
+		},
+		{
+			"files": ["*.html"],
+			"extends": ["plugin:@angular-eslint/template/recommended"],
+			"rules": {
+				"@angular-eslint/template/accessibility-alt-text": "error",
+				"@angular-eslint/template/accessibility-elements-content": "off",
+				"@angular-eslint/template/accessibility-label-for": "error",
+				"@angular-eslint/template/accessibility-label-has-associated-control": "error",
+				"@angular-eslint/template/accessibility-valid-aria": ["error"],
+				"@angular-eslint/template/banana-in-box": ["error"],
+				"@angular-eslint/template/button-has-type": "error",
+				"@angular-eslint/template/click-events-have-key-events": [
+					"error"
+				],
+				"@angular-eslint/template/conditional-complexity": ["error"],
+				"@angular-eslint/template/eqeqeq": ["error"],
+				"@angular-eslint/template/mouse-events-have-key-events": [
+					"error"
+				],
+				"@angular-eslint/template/no-duplicate-attributes": ["error"],
+				"@angular-eslint/template/no-distracting-elements": "error"
+			}
+		}
+	]
+}
