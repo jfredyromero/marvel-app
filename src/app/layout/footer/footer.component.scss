@@ -1,0 +1,11 @@
+@import "abstracts/variables";
+
+.footer {
+	width: 100%;
+	height: 15vh;
+	background-color: $footer-color;
+	&__sponsor {
+		color: white;
+		text-decoration: none;
+	}
+}

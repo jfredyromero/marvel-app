@@ -1,0 +1,21 @@
+.page-content {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	&__main-view {
+		flex-grow: 1;
+		width: 100%;
+		background-image: linear-gradient(
+				to right bottom,
+				rgba(113, 105, 81, 0.852),
+				rgba(113, 105, 81, 0.852)
+			),
+			url("/assets/background.jpeg");
+		background-position: center;
+		background-size: contain;
+		background-clip: content-box;
+	}
+}

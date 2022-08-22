@@ -1,0 +1,15 @@
+<form class="searcher form-group to-center" (ngSubmit)="searchHero()">
+	<div class="searcher__container p-input-icon-left">
+		<i class="searcher__icon pi pi-search"></i>
+		<input
+			id="query"
+			name="query"
+			class="searcher__input form-control p-inputtext-lg"
+			type="text"
+			pInputText
+			[(ngModel)]="query"
+			placeholder="Look for a hero"
+		/>
+		<label for="query" class="hidden">Look for a hero</label>
+	</div>
+</form>

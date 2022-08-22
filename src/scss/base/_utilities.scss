@@ -1,0 +1,10 @@
+.to-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.hover-effect:hover {
+	cursor: pointer;
+	transform: scale(1.02);
+	transition: transform 130ms ease-in-out;
+}

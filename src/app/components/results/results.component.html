@@ -1,0 +1,197 @@
+<div class="results m-5">
+	<p-dataView
+		[value]="characters"
+		[paginator]="true"
+		[rows]="rows"
+		[sortField]="sortField"
+		[sortOrder]="sortOrder"
+		[lazy]="true"
+		(onLazyLoad)="loadData($event)"
+		[first]="first"
+		[totalRecords]="totalRecords"
+		[loading]="(isLoading | async) ?? true"
+	>
+		<ng-template pTemplate="header">
+			<div
+				class="results__header flex flex-column md:flex-row md:justify-content-between"
+			>
+				<button
+					pButton
+					routerLink="/search"
+					class="results__button p-button"
+					type="button"
+					icon="pi pi-arrow-left"
+					iconPos="left"
+					label="Go Back"
+				></button>
+				<p-dropdown
+					[options]="sortOptions"
+					placeholder="Sort By"
+					(onChange)="onSortChange($event)"
+					class="results__dropdown"
+				></p-dropdown>
+				<p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+			</div>
+		</ng-template>
+		<ng-template let-character pTemplate="listItem">
+			<div class="results__content--list col-12 lg:col-6">
+				<div class="character--list-item">
+					<img
+						[src]="
+							character.thumbnail.path +
+							'.' +
+							character.thumbnail.extension
+						"
+						[alt]="character.name"
+						class="character__img--list-item hover-effect"
+						(click)="showDialog(character.id)"
+						(keyup.enter)="showDialog(character.id)"
+						(keyup.space)="showDialog(character.id)"
+					/>
+					<div class="character__list-detail">
+						<div
+							class="character__name hover-effect"
+							(click)="showDialog(character.id)"
+							tabindex="0"
+							(keyup.enter)="showDialog(character.id)"
+							(keyup.space)="showDialog(character.id)"
+						>
+							{{ character.name }}
+						</div>
+						<div class="character__description">
+							{{
+								character.description
+									? character.description
+									: "No description available"
+							}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</ng-template>
+		<ng-template let-character pTemplate="gridItem">
+			<div class="results__content--grid col-12 md:col-4 lg:col-3">
+				<div class="character--grid-item">
+					<img
+						[src]="
+							character.thumbnail.path +
+							'.' +
+							character.thumbnail.extension
+						"
+						[alt]="character.name"
+						class="character__img--grid-item hover-effect"
+						(click)="showDialog(character.id)"
+						(keyup.enter)="showDialog(character.id)"
+						(keyup.space)="showDialog(character.id)"
+					/>
+					<div
+						class="character__name hover-effect"
+						(click)="showDialog(character.id)"
+						tabindex="0"
+						(keyup.enter)="showDialog(character.id)"
+						(keyup.space)="showDialog(character.id)"
+					>
+						{{ character.name }}
+					</div>
+					<div class="character__description">
+						{{
+							character.description
+								? character.description
+								: "No description available"
+						}}
+					</div>
+				</div>
+			</div>
+		</ng-template>
+	</p-dataView>
+</div>
+<p-dialog
+	[(visible)]="isDialogActive"
+	[breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+	[style]="{ width: '50vw' }"
+	[modal]="true"
+	[draggable]="false"
+	[dismissableMask]="true"
+	closeAriaLabel="Close Modal"
+	closeTabindex="0"
+	class="modal"
+>
+	<ng-container class="modal__skeleton" *ngIf="!modalCharacter">
+		<p-skeleton
+			width="50%"
+			borderRadius="12px"
+			styleClass="mb-5"
+		></p-skeleton>
+		<div class="to-center mb-5">
+			<p-skeleton
+				width="10rem"
+				height="10rem"
+				borderRadius="12px"
+			></p-skeleton>
+		</div>
+		<p-skeleton
+			*ngFor="let i of [0, 1, 2]"
+			borderRadius="12px"
+			styleClass="mb-2"
+		></p-skeleton>
+		<div class="flex justify-content-end mt-5">
+			<p-skeleton
+				*ngFor="let i of [0, 1, 2]"
+				width="6rem"
+				height="2rem"
+				borderRadius="12px"
+				class="ml-3"
+			></p-skeleton>
+		</div>
+	</ng-container>
+	<ng-template class="modal__header" pTemplate="header">
+		<div *ngIf="modalCharacter" class="modal__name character__name">
+			{{ modalCharacter.name }}
+		</div>
+	</ng-template>
+	<div *ngIf="modalCharacter" class="modal__content to-center">
+		<img
+			[src]="
+				modalCharacter.thumbnail.path +
+				'.' +
+				modalCharacter.thumbnail.extension
+			"
+			[alt]="modalCharacter.name"
+			width="30%"
+		/>
+	</div>
+	<br *ngIf="modalCharacter" />
+	<div
+		*ngIf="modalCharacter"
+		class="modal__description character__description"
+	>
+		{{
+			modalCharacter.description
+				? modalCharacter.description
+				: "No description available"
+		}}
+	</div>
+	<ng-template class="modal__footer" pTemplate="footer">
+		<ng-container *ngIf="modalCharacter">
+			<a
+				class="modal__link results__link"
+				*ngFor="let url of modalCharacter?.urls"
+				href="{{ url.url }}"
+				rel="noopener noreferrer"
+				target="_blank"
+				tabindex="-1"
+			>
+				<button
+					pButton
+					class="modal__button p-button-text"
+					type="button"
+					icon="pi pi-arrow-right"
+					iconPos="right"
+					label="{{
+						url.type.charAt(0).toUpperCase() + url.type.slice(1)
+					}}"
+				></button>
+			</a>
+		</ng-container>
+	</ng-template>
+</p-dialog>
